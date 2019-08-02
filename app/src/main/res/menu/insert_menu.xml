@@ -6,4 +6,10 @@
         android:id="@+id/menu_insert"
         android:title="Insert"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/menu_logout"
+        android:title="Logout"
+        app:showAsAction="never" />
+
 </menu>

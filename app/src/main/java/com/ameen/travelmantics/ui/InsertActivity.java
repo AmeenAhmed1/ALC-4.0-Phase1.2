@@ -38,6 +38,16 @@ public class InsertActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.save_menu, menu);
+
+        if (FirebaseUtil.isAdmin) {
+            menu.findItem(R.id.menu_save).setVisible(true);
+            menu.findItem(R.id.menu_delete).setVisible(true);
+            setEditTextEnabled(true);
+        } else {
+            menu.findItem(R.id.menu_save).setVisible(false);
+            menu.findItem(R.id.menu_delete).setVisible(false);
+            setEditTextEnabled(false);
+        }
         return true;
     }
 
@@ -86,7 +96,7 @@ public class InsertActivity extends AppCompatActivity {
             txtPrice.setText(itemModel.getPrice());
         }
         //init firebase
-        FirebaseUtil.openFbReference("itemdeals");
+        //FirebaseUtil.openFbReference("itemdeals", this);
         firebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         databaseRef = FirebaseUtil.mDatabaseRef;
     }
@@ -125,5 +135,11 @@ public class InsertActivity extends AppCompatActivity {
     private void backToList() {
         startActivity(
                 new Intent(InsertActivity.this, DataActivity.class));
+    }
+
+    private void setEditTextEnabled(boolean isEnabled){
+        txtTitle.setEnabled(isEnabled);
+        txtDesc.setEnabled(isEnabled);
+        txtPrice.setEnabled(isEnabled);
     }
 }

@@ -32,7 +32,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
 
     public RecyclerAdapter() {
 
-        FirebaseUtil.openFbReference("itemdeals");
+        //FirebaseUtil.openFbReference("itemdeals");
         mFirebaseDatabase = FirebaseUtil.mFirebaseDatabase;
         mDatabaseReference = FirebaseUtil.mDatabaseRef;
         itemsList = FirebaseUtil.items;

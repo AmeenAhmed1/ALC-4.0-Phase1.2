@@ -1,6 +1,7 @@
 package com.ameen.travelmantics.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.ameen.travelmantics.R;
 import com.ameen.travelmantics.model.ItemModel;
+import com.ameen.travelmantics.ui.InsertActivity;
 import com.ameen.travelmantics.util.FirebaseUtil;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -91,7 +93,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
         return itemsList.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder {
+    public class MyHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         TextView textTitle, textDesc, textPrice;
 
@@ -102,12 +105,26 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
             textTitle = itemView.findViewById(R.id.item_title);
             textDesc = itemView.findViewById(R.id.item_desc);
             textPrice = itemView.findViewById(R.id.item_prise);
+
+            itemView.setOnClickListener(this);
         }
 
         public void bind(ItemModel itemModel) {
             textTitle.setText(itemModel.getTitle());
             textDesc.setText(itemModel.getDesc());
             textPrice.setText(itemModel.getPrice());
+        }
+
+        @Override
+        public void onClick(View v) {
+            int position = getAdapterPosition();
+
+            //Get the data and go to the edit activity
+            ItemModel item = itemsList.get(position);
+            Intent intent = new Intent(v.getContext(), InsertActivity.class);
+            intent.putExtra("item", item);
+            v.getContext().startActivity(intent);
+
         }
     }
 }

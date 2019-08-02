@@ -1,6 +1,8 @@
 package com.ameen.travelmantics.model;
 
-public class ItemModel {
+import java.io.Serializable;
+
+public class ItemModel implements Serializable {
 
     String id;
     String title;
@@ -8,7 +10,8 @@ public class ItemModel {
     String price;
     String imageUrl;
 
-    public ItemModel(){}
+    public ItemModel() {
+    }
 
     public ItemModel(String title, String desc, String price, String imageUrl) {
         this.title = title;

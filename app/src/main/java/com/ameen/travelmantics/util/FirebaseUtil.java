@@ -1,9 +1,8 @@
 package com.ameen.travelmantics.util;
 
 import android.app.Activity;
-import android.app.ListActivity;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.widget.Toast;
 
 import com.ameen.travelmantics.model.ItemModel;
@@ -16,6 +15,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +28,8 @@ public class FirebaseUtil {
     private static FirebaseUtil firebaseUtil;
     public static FirebaseDatabase mFirebaseDatabase;
     public static DatabaseReference mDatabaseRef;
+    public static FirebaseStorage mFirebaseStorage;
+    public static StorageReference mFirebaseStorageReference;
     public static FirebaseAuth mFirebaseAuth;
     public static FirebaseAuth.AuthStateListener mAuthStateListener;
     public static List<ItemModel> items;
@@ -55,6 +58,7 @@ public class FirebaseUtil {
                     }
                 }
             };
+            connectStorage();
         }
 
         items = new ArrayList<ItemModel>();
@@ -68,6 +72,7 @@ public class FirebaseUtil {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 FirebaseUtil.isAdmin = true;
+                caller.invalidateOptionsMenu();
             }
 
             @Override
@@ -114,6 +119,11 @@ public class FirebaseUtil {
 
     public static void detachListener() {
         mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
+    }
+
+    public static void connectStorage(){
+        mFirebaseStorage = FirebaseStorage.getInstance();
+        mFirebaseStorageReference = mFirebaseStorage.getReference().child("item-images");
     }
 
     public static void logOut() {

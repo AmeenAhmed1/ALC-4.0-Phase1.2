@@ -9,15 +9,17 @@ public class ItemModel implements Serializable {
     String desc;
     String price;
     String imageUrl;
+    private String imageName;
 
     public ItemModel() {
     }
 
-    public ItemModel(String title, String desc, String price, String imageUrl) {
+    public ItemModel(String title, String desc, String price, String imageUrl, String imageName) {
         this.title = title;
         this.desc = desc;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.imageName = imageName;
     }
 
     public String getId() {
@@ -58,5 +60,13 @@ public class ItemModel implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

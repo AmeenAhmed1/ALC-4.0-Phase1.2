@@ -1,19 +1,20 @@
 package com.ameen.travelmantics.adapter;
 
-import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ameen.travelmantics.R;
 import com.ameen.travelmantics.model.ItemModel;
 import com.ameen.travelmantics.ui.InsertActivity;
 import com.ameen.travelmantics.util.FirebaseUtil;
+import com.bumptech.glide.Glide;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -97,6 +98,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
             implements View.OnClickListener {
 
         TextView textTitle, textDesc, textPrice;
+        ImageView imgView;
 
         public MyHolder(@NonNull View itemView) {
             super(itemView);
@@ -105,6 +107,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
             textTitle = itemView.findViewById(R.id.item_title);
             textDesc = itemView.findViewById(R.id.item_desc);
             textPrice = itemView.findViewById(R.id.item_prise);
+            imgView = itemView.findViewById(R.id.item_image);
 
             itemView.setOnClickListener(this);
         }
@@ -113,6 +116,12 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyHold
             textTitle.setText(itemModel.getTitle());
             textDesc.setText(itemModel.getDesc());
             textPrice.setText(itemModel.getPrice());
+
+            Glide.with(imgView.getContext())
+                    .load(itemModel.getImageUrl())
+                    .override(260, 260)
+                    .centerCrop()
+                    .into(imgView);
         }
 
         @Override
